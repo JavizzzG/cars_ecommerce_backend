@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/cars/")
+@RequestMapping("/JCars/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -29,6 +29,11 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<UserResponseDTO> findUserById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponseDTO> findUserByEmail(@PathVariable String email){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
     }
 
     @PostMapping

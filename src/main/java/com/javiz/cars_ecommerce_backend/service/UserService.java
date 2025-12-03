@@ -4,6 +4,7 @@ import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserRequestDTO;
 import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserResponseDTO;
 import com.javiz.cars_ecommerce_backend.entity.User;
 import com.javiz.cars_ecommerce_backend.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +16,28 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public List<UserResponseDTO> findAll(){
         return userRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .toList();
     }
 
+    @Transactional
     public UserResponseDTO findById(Long id){
         return userRepository.findById(id)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    @Transactional
+    public UserResponseDTO findByEmail(String email){
+        return userRepository.findByEmail(email)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new RuntimeException("User was not found"));
+    }
+
+    @Transactional
     public UserResponseDTO save(UserRequestDTO userRequest){
 
         User user = convertToEntity(userRequest);
@@ -35,6 +46,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public UserResponseDTO update(Long id, UserRequestDTO userRequestDTO){
 
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User was not found"));
@@ -50,6 +62,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public void deleteById(Long id){
 
         userRepository.findById(id).orElseThrow(() -> new RuntimeException("user was not found"));
