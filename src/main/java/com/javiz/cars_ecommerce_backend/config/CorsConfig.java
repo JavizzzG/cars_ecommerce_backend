@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**") //Esto es para que aplique a todas las rutas de la API
-                .allowedOrigins("https://cars-ecommerce-frontend-git-develop-javizzzs-projects.vercel.app/**") // Para elegir los dominios que pueden consumir
+                .allowedOrigins("https://cars-ecommerce-frontend-git-develop-javizzzs-projects.vercel.app/") // Para elegir los dominios que pueden consumir
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Son los métodos permitidos
                 .allowedHeaders("*") // permite cualquier header
                 .allowCredentials(true);
