@@ -7,6 +7,11 @@ WORKDIR /app
 
 # Copia los archivos de configuración del proyecto (pom.xml o build.gradle) para resolver dependencias
 # Esto aprovecha el caché de Docker si las dependencias no cambian
+COPY mvnw .
+# Opcional: Asegurar que el script tenga permisos de ejecución
+RUN chmod +x mvnw
+COPY .mvn .mvn/
+
 COPY pom.xml .
 COPY src src
 
