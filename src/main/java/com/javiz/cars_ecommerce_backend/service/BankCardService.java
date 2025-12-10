@@ -39,10 +39,11 @@ public class BankCardService {
     }
 
     @Transactional
-    public List<BankCardResponseDTO> findByCardNumber(String number) {
+    public BankCardResponseDTO findByCardNumber(String number) {
         return bankCardRepository.findByNumber(number).stream()
                 .map(this::convertToDTO)
-                .toList();
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Bank card not found"));
     }
 
     @Transactional

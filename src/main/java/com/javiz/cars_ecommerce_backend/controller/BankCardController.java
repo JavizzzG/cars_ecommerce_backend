@@ -34,7 +34,7 @@ public class BankCardController {
     }
 
     @GetMapping("/number/{number}")
-    public ResponseEntity<List<BankCardResponseDTO>> findBankCardsByNumber(@PathVariable String number) {
+    public ResponseEntity<BankCardResponseDTO> findBankCardsByNumber(@PathVariable String number) {
         return ResponseEntity.status(HttpStatus.OK).body(bankCardService.findByCardNumber(number));
     }
 
