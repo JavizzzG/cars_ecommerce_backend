@@ -123,7 +123,7 @@ public class BankAccountService {
         dto.setName(bankAccount.getName());
         dto.setBalance(bankAccount.getBalance());
         dto.setStatus(bankAccount.getStatus());
-        // Password is intentionally not set in the DTO for security
+        dto.setPassword(bankAccount.getPassword());
         return dto;
     }
 }

@@ -9,6 +9,7 @@ public class BankAccountResponseDTO {
     private String fkcodeBank;
     private String document;
     private String name;
+    private String password;
     private BigDecimal balance;
     private Integer status;
     // Note: Password is intentionally excluded from the response DTO for security
