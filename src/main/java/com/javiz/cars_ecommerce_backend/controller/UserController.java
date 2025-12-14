@@ -44,9 +44,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO user){
-        if(userService.findByEmail(user.getEmail()).getEmail().equals(user.getEmail())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 
