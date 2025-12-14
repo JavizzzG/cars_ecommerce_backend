@@ -1,11 +1,13 @@
 package com.javiz.cars_ecommerce_backend.service;
 
+import com.javiz.cars_ecommerce_backend.dto.UserDTO.LoginDTO;
 import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserRequestDTO;
 import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserResponseDTO;
 import com.javiz.cars_ecommerce_backend.entity.User;
 import com.javiz.cars_ecommerce_backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public List<UserResponseDTO> findAll(){
@@ -38,7 +41,26 @@ public class UserService {
     }
 
     @Transactional
+    public UserResponseDTO login(LoginDTO loginDTO){
+
+        UserResponseDTO user = findByEmail(loginDTO.getEmail());
+
+        if(!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
+            throw new RuntimeException("Invalid password");
+        }
+
+        return user;
+
+    }
+
+    @Transactional
     public UserResponseDTO save(UserRequestDTO userRequest){
+
+        if(userRepository.findByEmail(userRequest.getEmail()).isPresent()){
+            throw new RuntimeException("User already exists");
+        }
+
+        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 
         User user = convertToEntity(userRequest);
 

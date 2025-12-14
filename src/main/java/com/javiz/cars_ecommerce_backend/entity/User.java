@@ -3,10 +3,6 @@ package com.javiz.cars_ecommerce_backend.entity;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
@@ -15,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "user")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,28 +34,5 @@ public class User implements UserDetails {
 
     @Column
     private String phone;
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public String getUsername(){
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired(){return true;}
-
-    @Override
-    public boolean isAccountNonLocked(){return true;}
-
-    @Override
-    public boolean isCredentialsNonExpired(){return true;}
-
-    @Override
-    public boolean isEnabled(){return true;}
 
 }

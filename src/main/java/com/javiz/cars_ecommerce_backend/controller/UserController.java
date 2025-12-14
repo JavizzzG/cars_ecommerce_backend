@@ -1,5 +1,6 @@
 package com.javiz.cars_ecommerce_backend.controller;
 
+import com.javiz.cars_ecommerce_backend.dto.UserDTO.LoginDTO;
 import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserRequestDTO;
 import com.javiz.cars_ecommerce_backend.dto.UserDTO.UserResponseDTO;
 import com.javiz.cars_ecommerce_backend.service.UserService;
@@ -36,8 +37,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginDTO loginDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.login(loginDTO));
+    }
+
     @PostMapping
     public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO user){
+        if(userService.findByEmail(user.getEmail()).getEmail().equals(user.getEmail())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 
