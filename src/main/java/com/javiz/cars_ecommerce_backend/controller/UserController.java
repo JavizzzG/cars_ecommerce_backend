@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<UserResponseDTO> loginUser(@RequestBody LoginDTO loginDTO){
         return ResponseEntity.status(HttpStatus.OK).body(userService.login(loginDTO));
     }
