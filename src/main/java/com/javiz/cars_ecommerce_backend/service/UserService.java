@@ -47,9 +47,9 @@ public class UserService {
 
         if(!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
             throw new RuntimeException("Invalid password");
+        }else{
+            return user;
         }
-
-        return user;
 
     }
 
