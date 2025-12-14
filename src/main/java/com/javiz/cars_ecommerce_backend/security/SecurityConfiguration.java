@@ -23,7 +23,17 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/JCars/api/auth/**", "/JCars/api/public/**").permitAll() // Tus rutas públicas
+                        .requestMatchers(
+                                "/JCars/api/auth/**",
+                                "/JCars/api/car/**",
+                                "/JCars/api/user/**",
+                                "/JCars/api/car-detail/**",
+                                "/JCars/api/car-image/**",
+                                "/JCars/api/bank/**",
+                                "/JCars/api/bank-account/**",
+                                "/JCars/api/bank-card/**",
+                                "/JCars/api/user-detail/**",
+                                "/JCars/api/order/**").permitAll() // Tus rutas públicas
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
