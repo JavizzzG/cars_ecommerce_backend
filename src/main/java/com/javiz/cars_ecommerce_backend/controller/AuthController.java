@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/Jcars/api/auth")
+@RequestMapping("/JCars/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
